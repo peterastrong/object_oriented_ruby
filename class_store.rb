@@ -1,23 +1,29 @@
-# item1 = {name: "lego", version: "batman's cave", price: 34.99}
-# item1 = {name: "Brio", version: "zoo train", price: 12.55}
-# item3 = {:name => "doll", :version => "Dora", :price => 15.99}
-
 class StoreItem  
 
-  attr_reader :toy_name, :version, :price
+  attr_reader :item_name, :version, :price
   attr_writer :price 
 
-  def initialize (toy_name, version, price) 
-    @toy_name = toy_name
-    @version = version
-    @price = price
+  def initialize (hash_input) 
+    @item_name = hash_input[:item_name]
+    @version = hash_input[:version]
+    @price = hash_input[:price]
   end 
 
 end
 
-store_item1 = StoreItem.new("Lego", "Batman's Cave", 34.99)
+store_item1 = StoreItem.new(item_name: "Lego", version: "Batman's Cave", price: 34.99)
+store_item2 = StoreItem.new(item_name: "Brio", version: "zoo train", price: 12.55)
+store_item3 = StoreItem.new(item_name: "doll", version: "Dora", price: 15.99)
 
-puts store_item1.toy_name
-puts store_item1.version
-puts store_item1.price
+class Food < StoreItem
+  attr_accessor :shelf_life
+  
+  def initialize (hash_input)
+    super
+    @shelf_life = hash_input[:shelf_life] 
+  end 
 
+end 
+
+food = Food.new(item_name: "cheese", version: "blue", price: 3.44, shelf_life: 4 )
+p food
