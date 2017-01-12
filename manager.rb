@@ -1,3 +1,10 @@
+module EmailSender # can make multiple methods here 
+  def send_report
+    puts "sending report...."
+    puts "done!"
+  end
+end 
+
 class Employee
 
   attr_reader :first_name, :last_name
@@ -39,18 +46,13 @@ employee3 = Employee.new(first_name: "Lynn", last_name: "Strong", )
 employee3 = Employee.new({})
 
 class Manager < Employee #Inheritance 
-  
+  include EmailSender
   attr_accessor :employees 
 
   def initialize(input_hash)
     super
     @employees = input_hash[:employees] || "none"
-  end 
-
-  def send_report
-    puts "sending report"
-    puts "done!"
-  end 
+  end  
 
   def print_info #overide method from Employee class 
     "#{first_name} #{last_name} makes $#{salary} now. very cool. "
@@ -61,8 +63,6 @@ class Manager < Employee #Inheritance
       employee.give_annual_raise
     end 
   end 
-
-  
 
   def fire_all_emp
     @employees.each do |employee|
@@ -81,4 +81,11 @@ manager1.employees.each do |employee|
   p employee
 end 
 
+class Intern < Manager
+  include EmailSender 
+end 
 
+intern = Intern.new(first_name: "Bill")
+
+p intern
+intern.send_report
